@@ -1,0 +1,20 @@
+{
+    "name": "zeptoclaw-cdp-wrapper",
+    "version": "1.0.0",
+    "description": "Coinbase AgentKit Wrapper for ZeptoClaw",
+    "main": "index.ts",
+    "scripts": {
+        "build": "tsc",
+        "start": "ts-node index.ts"
+    },
+    "dependencies": {
+        "@coinbase/agentkit": "^0.1.2",
+        "dotenv": "^16.4.5",
+        "fs-extra": "^11.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.24",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
+}

@@ -1,51 +1,39 @@
 ---
 name: smart-wallet
-description: Manage a crypto wallet and execute trades using Foundry 'cast'.
-metadata: { "zeptoclaw": { "emoji": "💰", "requires": { "bins": ["cast", "jq"] } } }
+description: Manage a Coinbase Smart Wallet (CDP) for gas-sponsored trades.
+metadata: { "zeptoclaw": { "emoji": "�️", "requires": { "bins": ["node", "npm"] } } }
 ---
 
-# Smart Wallet Skill
+# Smart Wallet Skill (Coinbase CDP)
 
-Allows ZeptoClaw to manage a crypto wallet on Base.
+Uses the official Coinbase AgentKit to provide a Smart Wallet with gas sponsorship and passkey support.
 
-## Prerequisites
-- `foundry` installed (for `cast` binary).
-- `ETH_RPC_URL` environment variable set (e.g., Alchemy/Infura for Base).
-- `PRIVATE_KEY` environment variable set (for signing).
+## Setup
+1.  Navigate to skill directory: `cd ~/.zeptoclaw/skills/smart-wallet/cdp-wrapper`
+2.  Install deps: `npm install`
+3.  Set Env Vars: `CDP_API_KEY_ID` and `CDP_API_KEY_SECRET`.
 
 ## Wallet Config
 
-### Check Balance (ETH)
+### Check Address
 ```bash
-cast balance --ether $ETH_FROM
+node cdp-wrapper/index.ts address
 ```
 
-### Check Token Balance (USDC)
+### Check Balance
 ```bash
-cast call 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 "balanceOf(address)(uint256)" $ETH_FROM --rpc-url $ETH_RPC_URL | cast to-dec 6
+node cdp-wrapper/index.ts balance
 ```
 
 ## Trading (Base Mainnet)
 
-### Swap ETH for USDC (via Uniswap V3 Router)
-Target: `0x2626664c2603336E57B271c5C0b26F421741e481` (Uniswap V3 Router)
-
+### Swap ETH for USDC
 ```bash
-# SWAP_EXACT_INPUT_SINGLE
-# params: (tokenIn, tokenOut, fee, recipient, deadline, amountIn, amountOutMinimum, sqrtPriceLimitX96)
-# tokenIn: WETH (0x4200000000000000000000000000000000000006)
-# tokenOut: USDC (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)
-# fee: 500 (0.05%)
-
-cast send 0x2626664c2603336E57B271c5C0b26F421741e481 \
-  "exactInputSingle((address,address,uint24,address,uint256,uint256,uint256,uint160))" \
-  "(0x4200000000000000000000000000000000000006, 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, 500, $ETH_FROM, $DEADLINE, $AMOUNT_IN_WEI, 0, 0)" \
-  --value $AMOUNT_ETH \
-  --private-key $PRIVATE_KEY \
-  --rpc-url $ETH_RPC_URL
+# Swaps 0.0001 ETH to USDC
+node cdp-wrapper/index.ts trade 0.0001 eth usdc
 ```
 
 ### Send ETH
 ```bash
-cast send --private-key $PRIVATE_KEY $RECIPIENT_ADDRESS --value $AMOUNT_ETH --rpc-url $ETH_RPC_URL
+node cdp-wrapper/index.ts transfer $RECIPIENT 0.001 eth
 ```
