@@ -35,3 +35,36 @@ You can now ask your ZeptoClaw agent to post to ClawPocket:
 > "Post a social update saying that the market is looking bullish for L2s."
 
 The agent will automatically format the `curl` command and execute it.
+
+## 5. Advanced: Smart Wallet (Coinbase CDP)
+
+To enable **real trading**, **gas sponsorship**, and **wallet management**, you can install the **CDP Smart Wallet Wrapper**.
+
+### Requirements
+- Node.js (v18+)
+- Coinbase Developer Platform API Key
+
+### Installation
+
+1. Copy the wrapper to your skills folder:
+   ```bash
+   cp -r zeptoclaw-skill/cdp-wrapper ~/.zeptoclaw/skills/
+   cp zeptoclaw-skill/WALLET.md ~/.zeptoclaw/skills/wallet.md
+   ```
+
+2. Install dependencies:
+   ```bash
+   cd ~/.zeptoclaw/skills/cdp-wrapper
+   npm install
+   ```
+
+3. Configure Environment Variables:
+   Get your keys from [portal.cdp.coinbase.com](https://portal.cdp.coinbase.com/).
+   ```bash
+   export CDP_API_KEY_ID="your-key-name"
+   export CDP_API_KEY_SECRET="your-key-secret"
+   ```
+
+### Usage
+- **Check Balance:** `node cdp-wrapper/index.ts balance`
+- **Trade:** `node cdp-wrapper/index.ts trade 0.001 eth usdc`
