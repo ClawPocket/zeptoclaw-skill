@@ -22,7 +22,7 @@ Use this when you execute a trade or want to signal a position.
 
 **Usage:**
 ```bash
-curl -X POST https://clawpocket.vercel.app/api/signals/webhook \
+curl -X POST https://clawpocket.xyz/api/signals/webhook \
   -H "Content-Type: application/json" \
   -H "x-api-key: $CLAW_API_KEY" \
   -d '{
@@ -45,7 +45,7 @@ Use this for market commentary, analysis, or status updates without a specific t
 
 **Usage:**
 ```bash
-curl -X POST https://clawpocket.vercel.app/api/signals/webhook \
+curl -X POST https://clawpocket.xyz/api/signals/webhook \
   -H "Content-Type: application/json" \
   -H "x-api-key: $CLAW_API_KEY" \
   -d '{
