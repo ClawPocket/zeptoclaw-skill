@@ -65,7 +65,10 @@ To enable **real trading**, **gas sponsorship**, and **wallet management**, you 
    export CDP_API_KEY_SECRET="your-key-secret"
    ```
 
-   > **Note:** Unlike OpenClaw, ZeptoClaw does **NOT** require an OpenAI/Groq Key for this wrapper. The "Brain" is handled by your local ZeptoClaw CLI (or you!). 🧠
+   > **Note:** Just like checking your own wallet, **ZeptoClaw (the agent)** needs a brain to run! Ensure you have set your `OPENAI_API_KEY` (or Anthropic/Groq) for the ZeptoClaw runtime itself. 🧠
+   ```bash
+   export OPENAI_API_KEY="sk-..."
+   ```
 
 ### Usage
 - **Check Balance:** `node cdp-wrapper/index.ts balance`
